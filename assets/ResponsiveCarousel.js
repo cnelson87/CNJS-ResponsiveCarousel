@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.0
+	VERSION: 0.2.1
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -63,6 +63,8 @@ var ResponsiveCarousel = Class.extend({
 		this.itemWidth = null;
 		this.scrollAmt = null;
 		this.trackWidth = null;
+		this.numVisibleItems = null;
+		this.numItemsToAnimate = null;
 
 		this.setOptions();
 
@@ -89,8 +91,7 @@ var ResponsiveCarousel = Class.extend({
 **/
 
 	setOptions: function() {
-
-		console.log(Config.currentBreakpoint);
+		// console.log(Config.currentBreakpoint);
 
 		switch(Config.currentBreakpoint) {
 			case 'mobile':
@@ -120,7 +121,6 @@ var ResponsiveCarousel = Class.extend({
 	},
 
 	setDOM: function() {
-		var $currentItem = $(this.$items[this.currentIndex]);
 		var itemWidth = this.itemWidth + '%';
 		var trackWidth = this.trackWidth + '%';
 		var leftPos = (this.scrollAmt * this.currentIndex) + '%';
@@ -140,7 +140,7 @@ var ResponsiveCarousel = Class.extend({
 		}); 
 
 		this.deactivateItems();
-		this.activateItem($currentItem);
+		this.activateItems();
 
 	},
 
@@ -237,7 +237,7 @@ var ResponsiveCarousel = Class.extend({
 		this.currentIndex -= this.numItemsToAnimate;
 		if (this.currentIndex < 0) {this.currentIndex = 0;}
 
-		this.updateCarousel();
+		this.updateCarousel(event);
 
 	},
 
@@ -251,7 +251,7 @@ var ResponsiveCarousel = Class.extend({
 		this.currentIndex += this.numItemsToAnimate;
 		if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
 
-		this.updateCarousel();
+		this.updateCarousel(event);
 
 	},
 
@@ -260,10 +260,10 @@ var ResponsiveCarousel = Class.extend({
 *	Public Methods
 **/
 
-	updateCarousel: function() {
+	updateCarousel: function(event) {
 		var self = this;
 		var leftPos = (this.scrollAmt * this.currentIndex) + '%';
-		var $currentItem = $(this.$items[this.currentIndex]);
+		var $activeitem = $(this.$items[this.currentIndex]);
 
 		this.isAnimating = true;
 
@@ -276,7 +276,10 @@ var ResponsiveCarousel = Class.extend({
 			ease: self.options.animEasing,
 			onComplete: function() {
 				self.isAnimating = false;
-				self.activateItem($currentItem);
+				self.activateItems();
+				if (!!event) {
+					$activeitem.focus();
+				}
 			}
 		});
 
@@ -304,9 +307,22 @@ var ResponsiveCarousel = Class.extend({
 		this.$items.find(this.options.selectorFocusEls).attr({tabindex: '-1'});
 	},
 
-	activateItem: function($elem) {
-		$elem.addClass(this.options.classActiveItem).attr({tabindex: '0'});
-		$elem.find(this.options.selectorFocusEls).attr({tabindex: '0'});
+	activateItems: function() {
+		var self = this;
+		var index = this.currentIndex;
+		var count = this.currentIndex + this.numVisibleItems;
+		var delay = 0;
+		var increment = 200;
+
+		for (var i=index; i<count; i++) {
+			$(this.$items[i]).delay(delay).queue(function(){
+				$(this).find(self.options.selectorFocusEls).attr({tabindex: '0'});
+				$(this).addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
+
+			});
+			delay += increment;
+		}
+
 	}
 
 });

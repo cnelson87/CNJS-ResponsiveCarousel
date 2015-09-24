@@ -1,7 +1,7 @@
 {
 	"name": "CNJS-ResponsiveCarousel",
 	"description": "Responsive Carousel widget",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"main": [
 		"assets/ResponsiveCarousel.js",
 		"assets/ResponsiveCarousel.css"
