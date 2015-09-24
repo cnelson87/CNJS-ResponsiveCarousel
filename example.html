@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<title>CNJS Responsive Carousel</title>
+
+	<link rel="stylesheet" href="assets/reset.css" />
+	<link rel="stylesheet" href="assets/breakpointIndicator.css" />
+	<link rel="stylesheet" href="assets/ResponsiveCarousel.css" />
+
+	<script src="assets/vendor/jquery.js"></script>
+	<script src="assets/vendor/jquery.touchSwipe.js"></script>
+	<script src="assets/vendor/TweenMax.js"></script>
+	<script src="assets/vendor/Class.js"></script>
+	<script src="assets/Config.js"></script>
+	<script src="assets/breakpointChange.js"></script>
+	<script src="assets/ResponsiveCarousel.js"></script>
+
+	<script>
+		$(function() {
+			breakpointChange();
+			var exCarousel111 = new ResponsiveCarousel( $('#carousel-m1-t1-d1'), {
+				numVisibleItemsMobile: 1,
+				numItemsToAnimateMobile: 1,
+				numVisibleItemsTablet: 1,
+				numItemsToAnimateTablet: 1,
+				numVisibleItemsDesktop: 1,
+				numItemsToAnimateDesktop: 1,
+				autoRotate: false
+			});
+			var exCarousel123 = new ResponsiveCarousel( $('#carousel-m1-t2-d3'), {
+				numVisibleItemsMobile: 1,
+				numItemsToAnimateMobile: 1,
+				numVisibleItemsTablet: 2,
+				numItemsToAnimateTablet: 1,
+				numVisibleItemsDesktop: 3,
+				numItemsToAnimateDesktop: 2,
+				autoRotate: false
+			});
+			var exCarousel135 = new ResponsiveCarousel( $('#carousel-m1-t3-d5'), {
+				numVisibleItemsMobile: 1,
+				numItemsToAnimateMobile: 1,
+				numVisibleItemsTablet: 3,
+				numItemsToAnimateTablet: 2,
+				numVisibleItemsDesktop: 5,
+				numItemsToAnimateDesktop: 3,
+				autoRotate: false
+			});
+		});
+    </script>
+
+</head>
+<body>
+
+	<section id="content">
+
+		<h1>CNJS Responsive Carousel</h1>
+
+		<br />
+
+		<h2>Carousel m:1 t:1 d:1</h2>
+
+		<div id="carousel-m1-t1-d1" class="responsive-carousel">
+
+			<div class="outer-mask">
+				<div class="inner-track">
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-01.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 01</h3>
+							<p>Caption for lorem ipsum 01.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-02.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 02</h3>
+							<p>Caption for lorem ipsum 02.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 03</h3>
+							<p>Caption for lorem ipsum 03.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-04.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 04</h3>
+							<p>Caption for lorem ipsum 04.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-05.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 05</h3>
+							<p>Caption for lorem ipsum 05.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-06.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 06</h3>
+							<p>Caption for lorem ipsum 06.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 07</h3>
+							<p>Caption for lorem ipsum 07.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-08.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 08</h3>
+							<p>Caption for lorem ipsum 08.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-09.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 09</h3>
+							<p>Caption for lorem ipsum 09.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-10.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 10</h3>
+							<p>Caption for lorem ipsum 10.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 11</h3>
+							<p>Caption for lorem ipsum 11.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 12</h3>
+							<p>Caption for lorem ipsum 12.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+				</div>
+			</div>
+			<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
+			<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+
+		</div>
+
+		<br />
+
+		<h2>Carousel m:1 t:2 d:3</h2>
+
+		<div id="carousel-m1-t2-d3" class="responsive-carousel carousel-m1-t2-d3">
+
+			<div class="outer-mask">
+				<div class="inner-track">
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-01.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 01</h3>
+							<p>Caption for lorem ipsum 01.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-02.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 02</h3>
+							<p>Caption for lorem ipsum 02.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 03</h3>
+							<p>Caption for lorem ipsum 03.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-04.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 04</h3>
+							<p>Caption for lorem ipsum 04.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-05.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 05</h3>
+							<p>Caption for lorem ipsum 05.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-06.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 06</h3>
+							<p>Caption for lorem ipsum 06.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 07</h3>
+							<p>Caption for lorem ipsum 07.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-08.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 08</h3>
+							<p>Caption for lorem ipsum 08.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-09.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 09</h3>
+							<p>Caption for lorem ipsum 09.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-10.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 10</h3>
+							<p>Caption for lorem ipsum 10.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 11</h3>
+							<p>Caption for lorem ipsum 11.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 12</h3>
+							<p>Caption for lorem ipsum 12.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+				</div>
+			</div>
+			<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
+			<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+
+		</div>
+
+		<br />
+
+		<h2>Carousel m:1 t:3 d:5</h2>
+
+		<div id="carousel-m1-t3-d5" class="responsive-carousel carousel-m1-t3-d5">
+
+			<div class="outer-mask">
+				<div class="inner-track">
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-01.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 01</h3>
+							<p>Caption for lorem ipsum 01.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-02.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 02</h3>
+							<p>Caption for lorem ipsum 02.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 03</h3>
+							<p>Caption for lorem ipsum 03.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-04.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 04</h3>
+							<p>Caption for lorem ipsum 04.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-05.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 05</h3>
+							<p>Caption for lorem ipsum 05.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-06.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 06</h3>
+							<p>Caption for lorem ipsum 06.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 07</h3>
+							<p>Caption for lorem ipsum 07.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-08.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 08</h3>
+							<p>Caption for lorem ipsum 08.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-09.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 09</h3>
+							<p>Caption for lorem ipsum 09.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-10.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 10</h3>
+							<p>Caption for lorem ipsum 10.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-03.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 11</h3>
+							<p>Caption for lorem ipsum 11.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+					<article>
+						<div class="media-container">
+							<img alt="" src="assets/images/media/main-07.jpg" />
+						</div>
+						<div class="media-info">
+							<h3>Lorem Ipsum 12</h3>
+							<p>Caption for lorem ipsum 12.<br /><a href="#">Read More</a></p>
+						</div>
+					</article>
+				</div>
+			</div>
+			<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
+			<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

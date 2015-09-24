@@ -1,0 +1,186 @@
+
+/*	-----------------------------------------------
+
+	reset and rebuild base html elements
+
+	----------------------------------------------- */
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strike, strong, sub, sup, var,
+b, i, u, center, hr,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+	display: block;
+}
+audio, canvas, video {
+	display: inline-block;
+}
+
+html, body {
+	width: 100%;
+	max-width: 100%;
+	min-height: 100%;
+	overflow-x: hidden;
+}
+
+body {
+	color: #010101;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 100%; /* 16px default type */
+	/* font-size: 87.5%; /* 14px */
+	/* font-size: 75.0%; /* 12px */
+	/* font-size: 62.5%; /* 10px */
+	line-height: 1.2;
+	background: #efefef;
+	position: relative;
+}
+/* Tablet + */
+@media (min-width: 768px) {
+	body {
+		font-size: 75.0%; /* 12px */
+	}
+}
+
+a {
+	cursor: pointer;
+	color: #900;
+	text-decoration: none;
+}
+a:active, a:focus, a:hover {
+	color: #c00;
+	text-decoration: underline;
+}
+
+p, ul, ol, dl, table {
+	line-height: 1.5;
+	margin-bottom: 1.5em;
+}
+	li {
+		margin: 0 0 0.5em 20px;
+	}
+	dt {
+		font-weight: bold;
+		margin-bottom: 0.2em;
+	}
+	dd {
+		margin-bottom: 0.5em;
+	}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+	th {
+		font-weight: bold;
+		text-align: left;
+		vertical-align: bottom;
+	}
+	td {
+		vertical-align: top;
+	}
+
+h1 {
+	color: #333;
+	font-size: 32px;
+	font-weight: normal;
+	line-height: 1.0;
+	margin-bottom: 16px;
+}
+
+h2 {
+	color: #333;
+	font-size: 24px;
+	font-weight: normal;
+	line-height: 1.0;
+	margin-bottom: 12px;
+}
+
+h3, h4, h5, h6 {
+	font-weight: bold;
+	line-height: 1.0;
+	margin-bottom: 0.2em;
+}
+h3 {
+	font-size: 1.3em;
+}
+h4 {
+	font-size: 1.1em;
+}
+h5 {
+	font-size: 1.0em;
+}
+h6 {
+	font-size: 1.0em;
+	font-weight: normal;
+}
+
+hr {
+	clear: both;
+	background: none;
+	border-top: 2px solid #999;
+	margin: 3.0em 0 1.5em 0;
+}
+
+img {
+	width: auto;
+	max-width: 100%;
+	height: auto;
+}
+
+#content {
+	width: 100%;
+	min-width: 360px;
+	min-height: 100vh;
+	background: #fff;
+	margin: 0 auto;
+	padding: 40px 20px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+
+	#content {
+		width: 760px;
+	}
+
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+
+	#content {
+		width: 1000px;
+	}
+
+}
+
+/* Desktop Wide */
+@media (min-width: 1280px) {
+
+	#content {
+		width: 1200px;
+	}
+
+}

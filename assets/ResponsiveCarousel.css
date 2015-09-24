@@ -1,0 +1,275 @@
+/*
+/* CAROUSEL
+/*-----------------------------------------------------*/
+
+
+.arrow-nav {
+	display: inline-block;
+	cursor: pointer;
+	width: 24px;
+	height: 24px;
+	background: transparent;
+	position: relative;
+}
+.arrow-nav.disabled {
+	cursor: default;
+	pointer-events: none;
+}
+	.arrow-nav .arrow {
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: transparent url("images/sprite-arrows.png") no-repeat 0 0;
+	}
+	.arrow-nav.nav-prev .arrow { background-position: -8px -8px; }
+	.arrow-nav.nav-prev:hover .arrow, .arrow-nav.nav-prev:focus .arrow { background-position: -8px -48px; }
+	.arrow-nav.nav-prev.disabled .arrow{ background-position: -8px -88px; }
+	.arrow-nav.nav-next .arrow { background-position: -48px -8px; }
+	.arrow-nav.nav-next:hover .arrow, .arrow-nav.nav-next:focus .arrow { background-position: -48px -48px; }
+	.arrow-nav.nav-next.disabled .arrow { background-position: -48px -88px; }
+	.arrow-nav.nav-up .arrow { background-position: -88px -8px; }
+	.arrow-nav.nav-up:hover .arrow, .arrow-nav.nav-up:focus .arrow { background-position: -88px -48px; }
+	.arrow-nav.nav-up.disabled .arrow { background-position: -88px -88px; }
+	.arrow-nav.nav-down .arrow { background-position: -128px -8px; }
+	.arrow-nav.nav-down:hover .arrow, .arrow-nav.nav-down:focus .arrow { background-position: -128px -48px; }
+	.arrow-nav.nav-down.disabled .arrow { background-position: -128px -88px; }
+
+@media (max-width: 767px) {
+
+	.arrow-nav {
+		width: 40px;
+		height: 40px;
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+	.arrow-nav.nav-prev .arrow { background-position: 0px 0px; }
+	.arrow-nav.nav-prev:hover .arrow, .arrow-nav.nav-prev:focus .arrow { background-position: 0px -40px; }
+	.arrow-nav.nav-prev.disabled .arrow { background-position: 0px -80px; }
+	.arrow-nav.nav-next .arrow { background-position: -40px 0px; }
+	.arrow-nav.nav-next:hover .arrow, .arrow-nav.nav-next:focus .arrow { background-position: -40px -40px; }
+	.arrow-nav.nav-next.disabled .arrow { background-position: -40px -80px; }
+	.arrow-nav.nav-up .arrow { background-position: -80px 0px; }
+	.arrow-nav.nav-up:hover .arrow, .arrow-nav.nav-up:focus .arrow { background-position: -80px -40px; }
+	.arrow-nav.nav-up.disabled .arrow { background-position: -80px -80px; }
+	.arrow-nav.nav-down .arrow { background-position: -120px 0px; }
+	.arrow-nav.nav-down:hover .arrow, .arrow-nav.nav-down:focus .arrow { background-position: -120px -40px; }
+	.arrow-nav.nav-down.disabled .arrow { background-position: -120px -80px; }
+
+}
+
+
+/******************************************************************
+	Assumes 10 items in carousel, 1 visible item in all views.
+	JS will re-calculate widths based on actual length of items.
+******************************************************************/
+
+.responsive-carousel {
+	width: calc(100% - 80px);
+	height: 0;
+	margin: 0 40px 1.0em 40px;
+	padding-top: 56.25%; /* creates 16x9 ratio */
+	position: relative;
+}
+
+	.responsive-carousel .arrow-nav {
+		position: absolute;
+		top: calc(50% - 12px);
+	}
+	.responsive-carousel .arrow-nav.nav-prev { left: -40px; }
+	.responsive-carousel .arrow-nav.nav-next { right: -40px; }
+
+	.responsive-carousel .outer-mask {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+		.responsive-carousel .outer-mask > .inner-track {
+			list-style: none;
+			display: block;
+			width: calc(100% * 10);
+			height: 100%;
+			margin: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.responsive-carousel .outer-mask > .inner-track > article {
+			float: left;
+			width: calc(100% / 10);
+			height: 100%;
+			margin: 0;
+			position: relative;
+		}
+			.responsive-carousel .outer-mask > .inner-track > article > .media-container {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+				.responsive-carousel .outer-mask > .inner-track > article > .media-container > img {
+					display: block;
+					width: 100%;
+					height: 100%;
+				}
+			.responsive-carousel .outer-mask > .inner-track > article > .media-info {
+				width: calc(100% - 40px);
+				min-height: 80px;
+				background: rgba(0,0,0,0.4);
+				padding: 12px;
+				position: absolute;
+				left: 20px;
+				right: 20px;
+				bottom: 20px;
+				opacity: 0;
+				transition: opacity 0.1s;
+			}
+				.responsive-carousel .outer-mask > .inner-track > article > .media-info h3,
+				.responsive-carousel .outer-mask > .inner-track > article > .media-info p {
+					color: #fff;
+					margin: 0;
+				}
+				.responsive-carousel .outer-mask > .inner-track > article > .media-info a {
+					color: #fff;
+				}
+				.responsive-carousel .outer-mask > .inner-track > article.active > .media-info {
+					opacity: 1.0;
+					transition: opacity 0.4s ease-out;
+				}
+
+
+/**************************************************************
+	Assumed defaults are as follows (restyle as necessary):
+	mobile: 1 visible item
+	tablet: 2 visible items
+	desktop: 3 visible items
+**************************************************************/
+
+.responsive-carousel.carousel-m1-t2-d3 {
+	padding-top: 56.25%; /* creates 16x9 ratio */
+}
+
+
+/**************************************************************
+	Assumed defaults are as follows (restyle as necessary):
+	mobile: 1 visible item
+	tablet: 3 visible items
+	desktop: 5 visible items
+**************************************************************/
+
+.responsive-carousel.carousel-m1-t3-d5 {
+	padding-top: 56.25%; /* creates 16x9 ratio */
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+
+	.responsive-carousel {
+		width: 100%;
+		margin: 0 0 1.0em 0;
+		background: #000;
+		padding-bottom: 100px; /* equal to .media-info height */
+	}
+
+		/*.responsive-carousel .arrow-nav {
+			height: calc(100% - 100px);
+			top: 0;
+		}
+		.responsive-carousel .arrow-nav .arrow {
+			width: 40px;
+			height: 40px;
+			position: absolute;
+			top: calc(50% - 20px);
+
+		}*/
+		.responsive-carousel .arrow-nav {
+			top: calc(((100% - 100px) / 2) - 12px);
+		}
+		.responsive-carousel .arrow-nav.nav-prev {
+			left: 0;
+		}
+		.responsive-carousel .arrow-nav.nav-next {
+			right: 0;
+		}
+
+			.responsive-carousel .outer-mask > .inner-track > article > .media-container {
+				height: calc(100% - 100px);
+			}
+			.responsive-carousel .outer-mask > .inner-track > article > .media-info {
+				width: 100%;
+				min-height: 100px;
+				background: #000;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+	/*.responsive-carousel {
+
+	}*/
+
+	.responsive-carousel.carousel-m1-t2-d3 {
+		padding-top: 28.125%; /* creates 16x9 ratio x 2 items */
+	}
+		.responsive-carousel.carousel-m1-t2-d3 .outer-mask > .inner-track > article > .media-info {
+			width: 100%;
+			min-height: 0;
+			height: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+	.responsive-carousel.carousel-m1-t3-d5 {
+		padding-top: 18.75%; /* creates 16x9 ratio x 3 items */
+	}
+		.responsive-carousel.carousel-m1-t3-d5 .outer-mask > .inner-track > article > .media-info {
+			width: 100%;
+			min-height: 0;
+			height: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+
+	/*.responsive-carousel {
+
+	}*/
+
+	.responsive-carousel.carousel-m1-t2-d3 {
+		padding-top: 18.75%; /* creates 16x9 ratio x 3 items */
+	}
+		.responsive-carousel.carousel-m1-t2-d3 .outer-mask > .inner-track > article > .media-info {
+			width: 100%;
+			min-height: 0;
+			height: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+	.responsive-carousel.carousel-m1-t3-d5 {
+		padding-top: 11.25%; /* creates 16x9 ratio x 5 items */
+	}
+		.responsive-carousel.carousel-m1-t3-d5 .outer-mask > .inner-track > article > .media-info {
+			width: 100%;
+			min-height: 0;
+			height: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+}

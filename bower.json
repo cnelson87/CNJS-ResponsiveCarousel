@@ -1,0 +1,22 @@
+{
+	"name": "CNJS-ResponsiveCarousel",
+	"description": "Responsive Carousel widget",
+	"version": "0.2.0",
+	"main": [
+		"assets/ResponsiveCarousel.js",
+		"assets/ResponsiveCarousel.css"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cnelson87/CNJS-ResponsiveCarousel"
+	},
+	"dependencies": {
+		"jquery": "~2.1.4",
+		"jquery-touchswipe": "~1.6.9",
+		"greensock": "~1.18.0",
+		"Class.js": "~1.0.0"
+	},
+	"ignore": [],
+	"license": "MIT",
+	"author": "Chris Nelson <cnelson87@gmail.com>"
+}

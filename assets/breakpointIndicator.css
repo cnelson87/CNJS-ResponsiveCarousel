@@ -1,0 +1,30 @@
+/*
+// Breakpoint Indicator
+// -----------------------------------------------------
+// An element that changes z-index when a breakpoint is crossed
+// Used in conjunction with /scripts/utiities/breakpointChange.js
+*/
+
+
+#breakpoint-indicator {
+	width: 1px;
+	height: 1px;
+	position: absolute;
+	left: -1px;
+	top: -1px;
+	z-index: 1;
+}
+
+/* Tablet+ */
+@media (min-width: 768px) {
+	#breakpoint-indicator {
+		z-index: 2;
+	}
+}
+
+/* Desktop+ */
+@media (min-width: 1024px) {
+	#breakpoint-indicator {
+		z-index: 3;
+	}
+}
