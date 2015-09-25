@@ -97,17 +97,14 @@ var ResponsiveCarousel = Class.extend({
 			case 'mobile':
 				this.numVisibleItems = this.options.numVisibleItemsMobile;
 				this.numItemsToAnimate = this.options.numItemsToAnimateMobile;
-
 				break;
 			case 'tablet':
 				this.numVisibleItems = this.options.numVisibleItemsTablet;
 				this.numItemsToAnimate = this.options.numItemsToAnimateTablet;
-
 				break;
 			case 'desktop':
 				this.numVisibleItems = this.options.numVisibleItemsDesktop;
 				this.numItemsToAnimate = this.options.numItemsToAnimateDesktop;
-
 				break;
 			default:
 				console.error('ERROR: Invalid Breakpoint');
@@ -147,7 +144,7 @@ var ResponsiveCarousel = Class.extend({
 	bindEvents: function() {
 		var self = this;
 
-		this.$window.on('BreakpointChange', function(event, params) {
+		this.$window.on('breakpointChange', function(event, params) {
 			self.__onBreakpointChange(event, params);
 		}.bind(this));
 
@@ -188,7 +185,7 @@ var ResponsiveCarousel = Class.extend({
 	},
 
 	unbindEvents: function() {
-		this.$window.off('BreakpointChange', function(){});
+		this.$window.off('breakpointChange', function(){});
 		this.$navPrev.off('click', function(){});
 		this.$navNext.off('click', function(){});
 		if (this.options.enableSwipe) {
@@ -221,7 +218,7 @@ var ResponsiveCarousel = Class.extend({
 **/
 
 	__onBreakpointChange: function(event, params) {
-		console.log('__onBreakpointChange');
+		// console.log('__onBreakpointChange');
 		// console.log(params);
 		this.setOptions();
 		this.setDOM();
@@ -314,12 +311,15 @@ var ResponsiveCarousel = Class.extend({
 		var delay = 0;
 		var increment = 200;
 
-		for (var i=index; i<count; i++) {
-			$(this.$items[i]).delay(delay).queue(function(){
-				$(this).find(self.options.selectorFocusEls).attr({tabindex: '0'});
-				$(this).addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
-
+		function activateItem($item) {
+			$item.delay(delay).queue(function() {
+				$item.find(self.options.selectorFocusEls).attr({tabindex: '0'});
+				$item.addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
 			});
+		}
+
+		for (var i=index; i<count; i++) {
+			activateItem($(this.$items[i]));
 			delay += increment;
 		}
 

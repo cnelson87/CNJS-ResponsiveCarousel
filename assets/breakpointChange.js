@@ -18,7 +18,7 @@ var breakpointChange = function() {
 		if (newZI !== zIndex) {
 			zIndex = newZI;
 			Config.currentBreakpoint = Config.breakpoints[zIndex];
-			$.event.trigger('BreakpointChange', {breakpoint: Config.currentBreakpoint} );
+			$.event.trigger('breakpointChange', {breakpoint: Config.currentBreakpoint} );
 		}
 	});
 
