@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.1
+	VERSION: 0.2.2
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
