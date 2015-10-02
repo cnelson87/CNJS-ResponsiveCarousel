@@ -233,7 +233,7 @@ var ResponsiveCarousel = Class.extend({
 		}
 
 		if (this.options.loopEndToEnd && this.currentIndex === 0) {
-			this.currentIndex = this.lastIndex
+			this.currentIndex = this.lastIndex;
 		} else {
 			this.currentIndex -= this.numItemsToAnimate;
 			if (this.currentIndex < 0) {this.currentIndex = 0;}
