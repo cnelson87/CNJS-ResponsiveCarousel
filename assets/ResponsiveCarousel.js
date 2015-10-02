@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.2
+	VERSION: 0.2.3
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -33,6 +33,7 @@ var ResponsiveCarousel = Class.extend({
 			numVisibleItemsDesktop: 1,
 			numItemsToAnimateDesktop: 1,
 			enableSwipe: true,
+			loopEndToEnd: false,
 			selectorNavPrev: '.nav-prev',
 			selectorNavNext: '.nav-next',
 			selectorInnerTrack: '.inner-track',
@@ -111,6 +112,7 @@ var ResponsiveCarousel = Class.extend({
 		}
 
 		this.lastIndex = this.lenItems - this.numVisibleItems;
+		if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
 		this.itemWidth = 100 / this.lenItems;
 		this.scrollAmt = (100 / this.numVisibleItems) * -1;
 		this.trackWidth = (1 / this.numVisibleItems) * (this.lenItems * 100);
@@ -218,7 +220,6 @@ var ResponsiveCarousel = Class.extend({
 **/
 
 	__onBreakpointChange: function(event, params) {
-		// console.log('__onBreakpointChange');
 		// console.log(params);
 		this.setOptions();
 		this.setDOM();
@@ -231,8 +232,12 @@ var ResponsiveCarousel = Class.extend({
 			this.options.autoRotate = false;
 		}
 
-		this.currentIndex -= this.numItemsToAnimate;
-		if (this.currentIndex < 0) {this.currentIndex = 0;}
+		if (this.options.loopEndToEnd && this.currentIndex === 0) {
+			this.currentIndex = this.lastIndex
+		} else {
+			this.currentIndex -= this.numItemsToAnimate;
+			if (this.currentIndex < 0) {this.currentIndex = 0;}
+		}
 
 		this.updateCarousel(event);
 
@@ -245,8 +250,12 @@ var ResponsiveCarousel = Class.extend({
 			this.options.autoRotate = false;
 		}
 
-		this.currentIndex += this.numItemsToAnimate;
-		if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
+		if (this.options.loopEndToEnd && this.currentIndex === this.lastIndex) {
+			this.currentIndex = 0;
+		} else {
+			this.currentIndex += this.numItemsToAnimate;
+			if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
+		}
 
 		this.updateCarousel(event);
 
@@ -270,7 +279,7 @@ var ResponsiveCarousel = Class.extend({
 
 		TweenMax.to(this.$innerTrack, this.options.animDuration, {
 			left: leftPos,
-			ease: self.options.animEasing,
+			ease: this.options.animEasing,
 			onComplete: function() {
 				self.isAnimating = false;
 				self.activateItems();
@@ -289,12 +298,16 @@ var ResponsiveCarousel = Class.extend({
 		this.$navPrev.removeClass(this.options.classNavDisabled).attr({tabindex: '0'});
 		this.$navNext.removeClass(this.options.classNavDisabled).attr({tabindex: '0'});
 
-		if (this.currentIndex <= 0) {
-			this.$navPrev.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
-		}
+		if (!this.options.loopEndToEnd) {
 
-		if (this.currentIndex >= this.lastIndex) {
-			this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+			if (this.currentIndex <= 0) {
+				this.$navPrev.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+			}
+
+			if (this.currentIndex >= this.lastIndex) {
+				this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+			}
+
 		}
 
 	},
@@ -309,7 +322,7 @@ var ResponsiveCarousel = Class.extend({
 		var index = this.currentIndex;
 		var count = this.currentIndex + this.numVisibleItems;
 		var delay = 0;
-		var increment = 200;
+		var increment = 100;
 
 		function activateItem($item) {
 			$item.delay(delay).queue(function() {
