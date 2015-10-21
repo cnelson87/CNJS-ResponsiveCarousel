@@ -1,10 +1,13 @@
 {
 	"name": "CNJS-ResponsiveCarousel",
 	"description": "Responsive Carousel widget",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"main": [
 		"assets/ResponsiveCarousel.js",
-		"assets/ResponsiveCarousel.css"
+		"assets/ResponsiveCarousel.css",
+		"assets/breakpointChange.js",
+		"assets/breakpointIndicator.css",
+		"assets/arrowNav.css"
 	],
 	"repository": {
 		"type": "git",

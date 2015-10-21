@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.3
+	VERSION: 0.2.4
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -37,7 +37,7 @@ var ResponsiveCarousel = Class.extend({
 			selectorNavPrev: '.nav-prev',
 			selectorNavNext: '.nav-next',
 			selectorInnerTrack: '.inner-track',
-			selectorItems: 'article',
+			selectorPanels: 'article',
 			classActiveItem: 'active',
 			classNavDisabled: 'disabled',
 			autoRotate: false,
@@ -46,19 +46,18 @@ var ResponsiveCarousel = Class.extend({
 			animDuration: 0.6,
 			animEasing: 'Power4.easeInOut',
 			selectorFocusEls: 'a, button, input, select, textarea',
-			customEventPrfx: 'CNJS:ResponsiveCarousel'
+			customEventName: 'CNJS:ResponsiveCarousel'
 		}, objOptions || {});
 
 		// element references
 		this.$navPrev = this.$el.find(this.options.selectorNavPrev);
 		this.$navNext = this.$el.find(this.options.selectorNavNext);
 		this.$innerTrack = this.$el.find(this.options.selectorInnerTrack);
-		this.$items = this.$innerTrack.children(this.options.selectorItems);
+		this.$panels = this.$innerTrack.children(this.options.selectorPanels);
 
 		// setup & properties
-		this.isAnimating = false;
-		this.lenItems = this.$items.length;
-		if (this.options.initialIndex >= this.lenItems) {this.options.initialIndex = 0;}
+		this._length = this.$panels.length;
+		if (this.options.initialIndex >= this._length) {this.options.initialIndex = 0;}
 		this.currentIndex = this.options.initialIndex;
 		this.lastIndex = null;
 		this.itemWidth = null;
@@ -66,6 +65,9 @@ var ResponsiveCarousel = Class.extend({
 		this.trackWidth = null;
 		this.numVisibleItems = null;
 		this.numItemsToAnimate = null;
+		this.isAnimating = false;
+
+		this.initDOM();
 
 		this.setOptions();
 
@@ -73,16 +75,7 @@ var ResponsiveCarousel = Class.extend({
 
 		this.bindEvents();
 
-		$.event.trigger(this.options.customEventPrfx + ':isInitialized', [this.$el]);
-
-		// auto-rotate items
-		if (this.options.autoRotate) {
-			this.rotationInterval = this.options.autoRotateInterval;
-			this.autoRotationCounter = this.lenItems * this.options.maxAutoRotations;
-			this.setAutoRotation = setInterval(function() {
-				this.autoRotation();
-			}.bind(this), this.rotationInterval);
-		}
+		$.event.trigger(this.options.customEventName + ':isInitialized', [this.$el]);
 
 	},
 
@@ -90,6 +83,24 @@ var ResponsiveCarousel = Class.extend({
 /**
 *	Private Methods
 **/
+
+	initDOM: function() {
+
+		this.$el.attr({'role':'tablist'});
+		this.$navPrev.attr({'role':'button', 'tabindex':'0'});
+		this.$navNext.attr({'role':'button', 'tabindex':'0'});
+		this.$panels.attr({'role':'tabpanel', 'tabindex':'-1'});
+
+		// auto-rotate items
+		if (this.options.autoRotate) {
+			this.rotationInterval = this.options.autoRotateInterval;
+			this.autoRotationCounter = this._length * this.options.maxAutoRotations;
+			this.setAutoRotation = setInterval(function() {
+				this.autoRotation();
+			}.bind(this), this.rotationInterval);
+		}
+
+	},
 
 	setOptions: function() {
 		// console.log(Config.currentBreakpoint);
@@ -111,11 +122,11 @@ var ResponsiveCarousel = Class.extend({
 				console.error('ERROR: Invalid Breakpoint');
 		}
 
-		this.lastIndex = this.lenItems - this.numVisibleItems;
+		this.lastIndex = this._length - this.numVisibleItems;
 		if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
-		this.itemWidth = 100 / this.lenItems;
+		this.itemWidth = 100 / this._length;
 		this.scrollAmt = (100 / this.numVisibleItems) * -1;
-		this.trackWidth = (1 / this.numVisibleItems) * (this.lenItems * 100);
+		this.trackWidth = (1 / this.numVisibleItems) * (this._length * 100);
 
 	},
 
@@ -126,13 +137,13 @@ var ResponsiveCarousel = Class.extend({
 
 		// disable nav links if not enough visible items
 		this.updateNav();
-		if (this.lenItems <= this.numVisibleItems) {
+		if (this._length <= this.numVisibleItems) {
 			this.$navPrev.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
 			this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
 		}
 
 		// adjust initial position
-		this.$items.css({width: itemWidth});
+		this.$panels.css({width: itemWidth});
 		TweenMax.set(this.$innerTrack, {
 			width: trackWidth,
 			left: leftPos
@@ -269,7 +280,7 @@ var ResponsiveCarousel = Class.extend({
 	updateCarousel: function(event) {
 		var self = this;
 		var leftPos = (this.scrollAmt * this.currentIndex) + '%';
-		var $activeitem = $(this.$items[this.currentIndex]);
+		var $currentItem = this.$panels.eq(this.currentIndex);
 
 		this.isAnimating = true;
 
@@ -284,12 +295,38 @@ var ResponsiveCarousel = Class.extend({
 				self.isAnimating = false;
 				self.activateItems();
 				if (!!event) {
-					$activeitem.focus();
+					$currentItem.focus();
 				}
 			}
 		});
 
-		$.event.trigger(this.options.customEventPrfx + ':carouselUpdated', [this.currentIndex]);
+		$.event.trigger(this.options.customEventName + ':carouselUpdated', [this.currentIndex]);
+
+	},
+
+	deactivateItems: function() {
+		this.$panels.removeClass(this.options.classActiveItem).attr({tabindex: '-1'});
+		this.$panels.find(this.options.selectorFocusEls).attr({tabindex: '-1'});
+	},
+
+	activateItems: function() {
+		var self = this;
+		var index = this.currentIndex;
+		var count = this.currentIndex + this.numVisibleItems;
+		var delay = 0;
+		var increment = 100;
+
+		function activateItem($item) {
+			$item.delay(delay).queue(function() {
+				$item.find(self.options.selectorFocusEls).attr({tabindex: '0'});
+				$item.addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
+			});
+		}
+
+		for (var i=index; i<count; i++) {
+			activateItem($(this.$panels[i]));
+			delay += increment;
+		}
 
 	},
 
@@ -308,32 +345,6 @@ var ResponsiveCarousel = Class.extend({
 				this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
 			}
 
-		}
-
-	},
-
-	deactivateItems: function() {
-		this.$items.removeClass(this.options.classActiveItem).attr({tabindex: '-1'});
-		this.$items.find(this.options.selectorFocusEls).attr({tabindex: '-1'});
-	},
-
-	activateItems: function() {
-		var self = this;
-		var index = this.currentIndex;
-		var count = this.currentIndex + this.numVisibleItems;
-		var delay = 0;
-		var increment = 100;
-
-		function activateItem($item) {
-			$item.delay(delay).queue(function() {
-				$item.find(self.options.selectorFocusEls).attr({tabindex: '0'});
-				$item.addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
-			});
-		}
-
-		for (var i=index; i<count; i++) {
-			activateItem($(this.$items[i]));
-			delay += increment;
 		}
 
 	}
