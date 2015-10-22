@@ -138,8 +138,8 @@ var ResponsiveCarousel = Class.extend({
 		// disable nav links if not enough visible items
 		this.updateNav();
 		if (this._length <= this.numVisibleItems) {
-			this.$navPrev.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
-			this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+			this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
+			this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
 		}
 
 		// adjust initial position
@@ -305,8 +305,8 @@ var ResponsiveCarousel = Class.extend({
 	},
 
 	deactivateItems: function() {
-		this.$panels.removeClass(this.options.classActiveItem).attr({tabindex: '-1'});
-		this.$panels.find(this.options.selectorFocusEls).attr({tabindex: '-1'});
+		this.$panels.removeClass(this.options.classActiveItem).attr({'tabindex':'-1'});
+		this.$panels.find(this.options.selectorFocusEls).attr({'tabindex':'-1'});
 	},
 
 	activateItems: function() {
@@ -318,8 +318,8 @@ var ResponsiveCarousel = Class.extend({
 
 		function activateItem($item) {
 			$item.delay(delay).queue(function() {
-				$item.find(self.options.selectorFocusEls).attr({tabindex: '0'});
-				$item.addClass(self.options.classActiveItem).attr({tabindex: '0'}).dequeue();
+				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0'});
+				$item.addClass(self.options.classActiveItem).attr({'tabindex':'0'}).dequeue();
 			});
 		}
 
@@ -332,17 +332,17 @@ var ResponsiveCarousel = Class.extend({
 
 	updateNav: function() {
 
-		this.$navPrev.removeClass(this.options.classNavDisabled).attr({tabindex: '0'});
-		this.$navNext.removeClass(this.options.classNavDisabled).attr({tabindex: '0'});
+		this.$navPrev.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
+		this.$navNext.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
 
 		if (!this.options.loopEndToEnd) {
 
 			if (this.currentIndex <= 0) {
-				this.$navPrev.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+				this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
 			}
 
 			if (this.currentIndex >= this.lastIndex) {
-				this.$navNext.addClass(this.options.classNavDisabled).attr({tabindex: '-1'});
+				this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
 			}
 
 		}
