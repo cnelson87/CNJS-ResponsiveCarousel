@@ -186,3 +186,32 @@ img {
 		width: 1240px;
 	}
 }
+
+
+/* utility classes */
+
+.clear {clear: both;}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.hidetext {
+	text-indent: 200%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.nowrap {white-space: nowrap;}
+
+.offscreen {
+	display: block;
+	position: fixed;
+	left: -9999px;
+}
+
+.pull-left {float: left;}
+.pull-right {float: right;}
+
