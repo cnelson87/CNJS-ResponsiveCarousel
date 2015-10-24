@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.4
+	VERSION: 0.2.5
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -12,7 +12,7 @@
 	AUTHOR: CN
 
 	DEPENDENCIES:
-		- jQuery 2.1x+
+		- jquery 2.1x+
 		- greensock
 		- Class.js
 
@@ -86,10 +86,10 @@ var ResponsiveCarousel = Class.extend({
 
 	initDOM: function() {
 
-		this.$el.attr({'role':'tablist'});
+		this.$el.attr({'role':'tablist', 'aria-live':'polite'});
 		this.$navPrev.attr({'role':'button', 'tabindex':'0'});
 		this.$navNext.attr({'role':'button', 'tabindex':'0'});
-		this.$panels.attr({'role':'tabpanel', 'tabindex':'-1'});
+		this.$panels.attr({'role':'tabpanel', 'tabindex':'-1', 'aria-hidden':'true'});
 
 		// auto-rotate items
 		if (this.options.autoRotate) {
@@ -305,7 +305,7 @@ var ResponsiveCarousel = Class.extend({
 	},
 
 	deactivateItems: function() {
-		this.$panels.removeClass(this.options.classActiveItem).attr({'tabindex':'-1'});
+		this.$panels.removeClass(this.options.classActiveItem).attr({'tabindex':'-1', 'aria-hidden':'true'});
 		this.$panels.find(this.options.selectorFocusEls).attr({'tabindex':'-1'});
 	},
 
@@ -318,7 +318,7 @@ var ResponsiveCarousel = Class.extend({
 
 		function activateItem($item) {
 			$item.delay(delay).queue(function() {
-				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0'});
+				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0', 'aria-hidden':'false'});
 				$item.addClass(self.options.classActiveItem).attr({'tabindex':'0'}).dequeue();
 			});
 		}
