@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.5
+	VERSION: 0.2.6
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -23,6 +23,7 @@ var ResponsiveCarousel = Class.extend({
 
 		// defaults
 		this.$window = $(window);
+		this.$htmlBody = $('html, body');
 		this.$el = $el;
 		this.options = $.extend({
 			initialIndex: 0,
@@ -280,7 +281,7 @@ var ResponsiveCarousel = Class.extend({
 	updateCarousel: function(event) {
 		var self = this;
 		var leftPos = (this.scrollAmt * this.currentIndex) + '%';
-		var $currentItem = this.$panels.eq(this.currentIndex);
+		var $activePanel = this.$panels.eq(this.currentIndex);
 
 		this.isAnimating = true;
 
@@ -295,12 +296,28 @@ var ResponsiveCarousel = Class.extend({
 				self.isAnimating = false;
 				self.activateItems();
 				if (!!event) {
-					$currentItem.focus();
+					self.focusOnPanel($activePanel);
 				}
 			}
 		});
 
 		$.event.trigger(this.options.customEventName + ':carouselUpdated', [this.currentIndex]);
+
+	},
+
+	updateNav: function() {
+
+		this.$navPrev.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
+		this.$navNext.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
+
+		if (!this.options.loopEndToEnd) {
+			if (this.currentIndex <= 0) {
+				this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
+			}
+			if (this.currentIndex >= this.lastIndex) {
+				this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
+			}
+		}
 
 	},
 
@@ -311,42 +328,33 @@ var ResponsiveCarousel = Class.extend({
 
 	activateItems: function() {
 		var self = this;
-		var index = this.currentIndex;
-		var count = this.currentIndex + this.numVisibleItems;
-		var delay = 0;
-		var increment = 100;
+		var first = this.currentIndex;
+		var last = this.currentIndex + this.numVisibleItems;
+		var $activeItems = this.$panels.slice(first, last);
+		var delay = 100;
 
-		function activateItem($item) {
-			$item.delay(delay).queue(function() {
+		$activeItems.each(function(index) {
+			var $item = $(this);
+			$item.delay(delay*index).queue(function() {
 				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0', 'aria-hidden':'false'});
 				$item.addClass(self.options.classActiveItem).attr({'tabindex':'0'}).dequeue();
 			});
-		}
-
-		for (var i=index; i<count; i++) {
-			activateItem($(this.$panels[i]));
-			delay += increment;
-		}
+		});
 
 	},
 
-	updateNav: function() {
-
-		this.$navPrev.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
-		this.$navNext.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
-
-		if (!this.options.loopEndToEnd) {
-
-			if (this.currentIndex <= 0) {
-				this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
-			}
-
-			if (this.currentIndex >= this.lastIndex) {
-				this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
-			}
-
+	focusOnPanel: function($panel) {
+		var pnlTop = $panel.offset().top;
+		var pnlHeight = $panel.outerHeight();
+		var winTop = this.$window.scrollTop();
+		var winHeight = this.$window.height();
+		if (pnlHeight > winHeight || pnlTop < winTop) {
+			this.$htmlBody.animate({scrollTop: pnlTop}, 200, function() {
+				$panel.focus();
+			});
+		} else {
+			$panel.focus();
 		}
-
 	}
 
 });
