@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.6
+	VERSION: 0.2.6.1
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -336,8 +336,8 @@ var ResponsiveCarousel = Class.extend({
 		$activeItems.each(function(index) {
 			var $item = $(this);
 			$item.delay(delay*index).queue(function() {
-				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0', 'aria-hidden':'false'});
-				$item.addClass(self.options.classActiveItem).attr({'tabindex':'0'}).dequeue();
+				$item.find(self.options.selectorFocusEls).attr({'tabindex':'0'});
+				$item.addClass(self.options.classActiveItem).attr({'tabindex':'0', 'aria-hidden':'false'}).dequeue();
 			});
 		});
 
