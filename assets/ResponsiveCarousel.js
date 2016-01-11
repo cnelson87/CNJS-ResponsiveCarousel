@@ -3,7 +3,7 @@
 
 	DESCRIPTION: A carousel widget that responds to mobile, tablet, and desaktop media queries
 
-	VERSION: 0.2.6.1
+	VERSION: 0.2.7
 
 	USAGE: var myCarousel = new ResponsiveCarousel('Element', 'Options')
 		@param {jQuery Object}
@@ -155,6 +155,24 @@ var ResponsiveCarousel = Class.extend({
 
 	},
 
+	uninitDOM: function() {
+
+		this.$el.removeAttr('role aria-live');
+		this.$navPrev.removeAttr('role tabindex');
+		this.$navNext.removeAttr('role tabindex');
+		this.$panels.removeAttr('role tabindex aria-hidden').removeClass(this.options.classActiveItem);
+		this.$panels.find(this.options.selectorFocusEls).removeAttr('tabindex');
+
+		TweenMax.set(this.$innerTrack, {
+			left: ''
+		});
+
+		if (this.options.autoRotate) {
+			clearInterval(this.setAutoRotation);
+		}
+
+	},
+
 	bindEvents: function() {
 		var self = this;
 
@@ -199,9 +217,9 @@ var ResponsiveCarousel = Class.extend({
 	},
 
 	unbindEvents: function() {
-		this.$window.off('breakpointChange', function(){});
-		this.$navPrev.off('click', function(){});
-		this.$navNext.off('click', function(){});
+		this.$window.off('breakpointChange');
+		this.$navPrev.off('click'});
+		this.$navNext.off('click');
 		if (this.options.enableSwipe) {
 			this.$el.swipe('destroy');
 		}
@@ -355,6 +373,17 @@ var ResponsiveCarousel = Class.extend({
 		} else {
 			$panel.focus();
 		}
+	},
+
+	unInitialize: function() {
+		this.unbindEvents();
+		this.uninitDOM();
+		this.$el = null;
+		this.$navPrev = null;
+		this.$navNext = null;
+		this.$innerTrack = null;
+		this.$panels = null;
+		$.event.trigger(this.options.customEventName + ':unInitialized');
 	}
 
 });
