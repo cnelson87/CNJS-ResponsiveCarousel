@@ -15,8 +15,8 @@
 	},
 	"dependencies": {
 		"jquery": "~2.2.4",
-		"jquery-touchswipe": "1.6.9",
-		"greensock": "~1.18.4",
+		"jquery-touchswipe": "1.6.18",
+		"greensock": "~1.19.0",
 		"Class.js": "~1.0.0"
 	},
 	"ignore": [],
